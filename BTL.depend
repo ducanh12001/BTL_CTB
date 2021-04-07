@@ -1,0 +1,62 @@
+# depslib dependency file v1.0
+1617206757 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\sdl_utils.cpp
+	<iostream>
+	<SDL.h>
+
+1617787412 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\basket.cpp
+	"Basket.h"
+
+1617214667 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\game.cpp
+	<iostream>
+	"Game.h"
+
+1617215815 c:\users\mypc\onedrive\desktop\codeblock code\btl\game.h
+	"Basket.h"
+	"Position.h"
+
+1617786545 c:\users\mypc\onedrive\desktop\codeblock code\btl\basket.h
+	<queue>
+	<vector>
+	"Position.h"
+	"CommonFunc.h"
+	"BaseObject.h"
+
+1617215294 c:\users\mypc\onedrive\desktop\codeblock code\btl\position.h
+	<stdexcept>
+
+1617787791 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\main.cpp
+	<iostream>
+	"SDL_utils.h"
+	"Game.h"
+	"CommonFunc.h"
+	"BaseObject.h"
+	"Basket.h"
+
+1617206810 c:\users\mypc\onedrive\desktop\codeblock code\btl\sdl_utils.h
+	<iostream>
+	<SDL.h>
+
+1617298035 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\commonfunc.cpp
+	"CommonFunc.h"
+
+1617788104 c:\users\mypc\onedrive\desktop\codeblock code\btl\commonfunc.h
+	<windows.h>
+	<string>
+	<SDL.h>
+	<SDL_image.h>
+
+1617761577 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\baseobject.cpp
+	"BaseObject.h"
+	<iostream>
+
+1617390407 c:\users\mypc\onedrive\desktop\codeblock code\btl\baseobject.h
+	<iostream>
+	"CommonFunc.h"
+
+1617788638 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\ball.cpp
+	"Ball.h"
+
+1617789102 c:\users\mypc\onedrive\desktop\codeblock code\btl\ball.h
+	"CommonFunc.h"
+	"BaseObject.h"
+
