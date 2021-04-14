@@ -11,14 +11,18 @@ static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
 
 //Screen
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 640;
+const int SCREEN_WIDTH = 1200;
+const int SCREEN_HEIGHT = 600;
 const int SCREEN_BPP = 32;
 
 const int COLOR_KEY_R = 255;
 const int COLOR_KEY_G = 255;
 const int COLOR_KEY_B = 255;
 const int RENDER_DRAW_COLOR = 0xff;
+
+const int SCORE = 0;
+const int LIVES = 3;
+const int BALL_SPEED = 0.8;
 
 typedef struct Input
 {

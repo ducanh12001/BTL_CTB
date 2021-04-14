@@ -3,8 +3,46 @@
 
 using namespace std;
 
-//luu tru huong di trong hang doi(bam nhieu nut ltuc)
-void Game::processUserInput(Direction direction)
+Game::Game(int w, int h)
 {
-    inputQueue.push(direction);
+    this->mapWidth = w;
+    this->mapHeight = h;
+}
+
+int Game::getScore()
+{
+    return score;
+}
+
+int Game::getLives()
+{
+    return lives;
+}
+
+void Game::play()
+{
+    isOver = false;
+    score = 0;
+    Basket basket = new Basket();
+    Ball ball = new Ball();
+    ball->setRandomPos(0, maxWidth - 1);
+
+    int frames = 0;
+    while (!isOver)
+    {
+        if (frames % 2 == 0)
+            ball->ballFall();
+        frames++;
+        ball->checkColision(basket);
+        if (quitGame)
+        {
+
+        }
+
+    }
+
+    if (isOver)
+    {
+
+    }
 }

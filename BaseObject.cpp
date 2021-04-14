@@ -1,5 +1,6 @@
 #include "BaseObject.h"
 #include <iostream>
+
 BaseObject::BaseObject()
 {
     p_object_ = NULL;

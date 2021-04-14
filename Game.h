@@ -1,27 +1,26 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "CommonFunc.h"
 #include "Basket.h"
-#include "Position.h"
+#include "Ball.h"
 
 class Game
 {
 public:
-	const int width;
-	const int height;
-private:
-    std::queue<Direction> inputQueue;
-    int score;
-public:
-    Game(int _width, int _height);
+    int mapHeight;
+    int mapWidth;
+    int score = SCORE;
+    int lives = LIVES;
+    int ball_speed = BALL_SPEED;
+    bool isOver = false;
+    bool quitGame = false;
 
-    void processUserInput(Direction direction);
+    Game(int w, int h);
+    int getScore();
+    int getLives();
+    void play();
 };
-
-
-
-
-
 
 #endif
 

@@ -3,60 +3,61 @@
 	<iostream>
 	<SDL.h>
 
-1617787412 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\basket.cpp
+1618367997 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\basket.cpp
 	"Basket.h"
 
-1617214667 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\game.cpp
+1617814785 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\game.cpp
 	<iostream>
 	"Game.h"
 
-1617215815 c:\users\mypc\onedrive\desktop\codeblock code\btl\game.h
+1618369989 c:\users\mypc\onedrive\desktop\codeblock code\btl\game.h
+	"CommonFunc.h"
 	"Basket.h"
-	"Position.h"
+	"Ball.h"
 
-1617786545 c:\users\mypc\onedrive\desktop\codeblock code\btl\basket.h
-	<queue>
-	<vector>
-	"Position.h"
+1618368634 c:\users\mypc\onedrive\desktop\codeblock code\btl\basket.h
 	"CommonFunc.h"
 	"BaseObject.h"
+	"Game.h"
 
 1617215294 c:\users\mypc\onedrive\desktop\codeblock code\btl\position.h
 	<stdexcept>
 
-1617787791 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\main.cpp
+1618322503 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\main.cpp
 	<iostream>
 	"SDL_utils.h"
 	"Game.h"
 	"CommonFunc.h"
 	"BaseObject.h"
 	"Basket.h"
+	"Ball.h"
 
 1617206810 c:\users\mypc\onedrive\desktop\codeblock code\btl\sdl_utils.h
 	<iostream>
 	<SDL.h>
 
-1617298035 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\commonfunc.cpp
+1618369665 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\commonfunc.cpp
 	"CommonFunc.h"
 
-1617788104 c:\users\mypc\onedrive\desktop\codeblock code\btl\commonfunc.h
+1618369441 c:\users\mypc\onedrive\desktop\codeblock code\btl\commonfunc.h
 	<windows.h>
 	<string>
 	<SDL.h>
 	<SDL_image.h>
 
-1617761577 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\baseobject.cpp
+1617817633 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\baseobject.cpp
 	"BaseObject.h"
 	<iostream>
 
-1617390407 c:\users\mypc\onedrive\desktop\codeblock code\btl\baseobject.h
+1618368623 c:\users\mypc\onedrive\desktop\codeblock code\btl\baseobject.h
 	<iostream>
 	"CommonFunc.h"
 
-1617788638 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\ball.cpp
+1617820538 source:c:\users\mypc\onedrive\desktop\codeblock code\btl\ball.cpp
 	"Ball.h"
 
-1617789102 c:\users\mypc\onedrive\desktop\codeblock code\btl\ball.h
+1618369923 c:\users\mypc\onedrive\desktop\codeblock code\btl\ball.h
 	"CommonFunc.h"
 	"BaseObject.h"
+	"Basket.h"
 

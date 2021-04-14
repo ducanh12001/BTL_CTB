@@ -31,6 +31,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Ball.cpp" />
+		<Unit filename="Ball.h" />
 		<Unit filename="BaseObject.cpp" />
 		<Unit filename="BaseObject.h" />
 		<Unit filename="Basket.cpp" />
@@ -39,7 +41,6 @@
 		<Unit filename="CommonFunc.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
-		<Unit filename="Position.h" />
 		<Unit filename="SDL_utils.cpp" />
 		<Unit filename="SDL_utils.h" />
 		<Unit filename="main.cpp" />

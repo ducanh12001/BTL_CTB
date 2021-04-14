@@ -5,6 +5,7 @@
 #include "CommonFunc.h"
 #include "BaseObject.h"
 #include "Basket.h"
+#include "Ball.h"
 
 using namespace std;
 
@@ -30,7 +31,9 @@ bool InitData()
     {
         g_screen = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED);
         if (g_screen == NULL)
+        {
             success = false;
+        }
         else
         {
             SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
@@ -64,28 +67,17 @@ void close()
     SDL_Quit();
 }
 
-void interpretEvent(SDL_Event e, Game & game);
-
 int main(int argc, char* argv[])
 {
-    /*SDL_Window* window;
-    SDL_Renderer* renderer;
-    initSDL(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
-
-    // use SDL_RenderPresent(renderer) to show it
-
-    waitUntilKeyPressed();
-    quitSDL(window, renderer);
-    */
     if (InitData() == false)
         return -1;
 
     if (LoadBackGround() == false)
         return -1;
 
-    Basket p_player;
-    p_player.LoadImg("img/basket80.png", g_screen);
-    p_player.set_clips();
+    Basket basket;
+    basket.LoadImg("img/basket80.png", g_screen);
+    basket.set_clips();
 
     bool is_quit = false;
     while(!is_quit)
@@ -97,7 +89,7 @@ int main(int argc, char* argv[])
                 is_quit == true;
             }
 
-            p_player.HandleInputAction(g_event, g_screen);
+            basket.HandleInputAction(g_event, g_screen);
         }
 
         SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
@@ -105,22 +97,12 @@ int main(int argc, char* argv[])
 
         g_background.Render(g_screen, NULL);
 
-        p_player.Show(g_screen);
+        basket.Show(g_screen);
 
         SDL_RenderPresent(g_screen);
     }
     close();
     return 0;
-}
-
-void interpretEvent(SDL_Event e, Game & game)
-{
-    if (e.type == SDL_KEYUP) {
-        switch (e.key.keysym.sym) {
-            case SDLK_LEFT: game.processUserInput(LEFT); break;
-            case SDLK_RIGHT: game.processUserInput(RIGHT); break;
-        }
-    }
 }
 
 

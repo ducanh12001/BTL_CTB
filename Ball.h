@@ -3,26 +3,30 @@
 
 #include "CommonFunc.h"
 #include "BaseObject.h"
+#include "Basket.h"
+#include "Game.h"
 
 using namespace std;
 
-class Ball : public BaseObject
+class Ball
 {
+
 public:
     Ball();
     ~Ball();
 
     bool LoadImg(string path, SDL_Renderer* screen);
+    void ballFall();
+    void checkColision(Basket* basket);
+    void setRandomPos(int min_x, int max_x);
+    bool isMissed;
 
-private:
-    float x_val_;
-    float y_val_;
+protected:
+    int x_pos_b;
+    float y_pos_b;
 
-    float x_pos_;
-    float y_pos_;
-
-    int width_frame_;
-    int height_frame_;
+    int width_frame_b;
+    int height_frame_b;
 };
 
 #endif // BALL_H
