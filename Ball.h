@@ -1,32 +1,36 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include "CommonFunc.h"
-#include "BaseObject.h"
-#include "Basket.h"
-#include "Game.h"
-
-using namespace std;
+#include <SDL.h>
+#include <SDL_image.h>
+#include <iostream>
 
 class Ball
 {
-
 public:
     Ball();
     ~Ball();
+    bool check = false;
+    bool loadImg(SDL_Renderer* res);
+    void renderBall(SDL_Renderer* res);
+    void ballMove();
+    void resetBall();
+    bool check_catched = false;
 
-    bool LoadImg(string path, SDL_Renderer* screen);
-    void ballFall();
-    void checkColision(Basket* basket);
-    void setRandomPos(int min_x, int max_x);
-    bool isMissed;
+    float x_pos;
+    float y_pos;
+    double increase_speed = 0.1;
+    int count_frame = 0;
+    int limit_frame = 5000;
+    void update_speed();
+    int width_frame;
+    int height_frame;
 
-protected:
-    int x_pos_b;
-    float y_pos_b;
+    double ball_speed = 0.2;
 
-    int width_frame_b;
-    int height_frame_b;
+    SDL_Texture *ball_img;
+    std::string ball_path = "img/ball80.png";
+    SDL_Rect ball_rect;
 };
 
 #endif // BALL_H

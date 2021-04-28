@@ -1,114 +1,109 @@
 #include "Basket.h"
+#include "BaseObject.h"
 
 using namespace std;
 
+BaseObject bo;
+
 Basket::Basket()
 {
-    frame_ = 0;
-    x_pos_ = 0;
-    y_pos_ = SCREEN_HEIGHT - 80;
-    x_val_ = 0;
-    y_val_ = 0;
-    width_frame_ = 0;
-    height_frame_ = 0;
-    status_ = -1;
-    input_type_.left_ = 0;
-    input_type_.right_ = 0;
+    x_pos = 0;
+    y_pos = SCREEN_HEIGHT - 80;
+    width_frame = 0;
+    height_frame = 0;
 }
 
-Basket::~Basket()
-{
+Basket::~Basket() {}
 
-}
-
-bool Basket::LoadImg(string path, SDL_Renderer* screen)
+bool Basket::loadImg(SDL_Renderer* screen)
 {
-    bool ret = BaseObject::LoadImg(path, screen);
+    bool ret = bo.LoadImg(basket_path, screen);
+    basket_img = bo.p_object;
     if (ret == true)
     {
-        width_frame_ = rect_.w/4;
-        height_frame_ = rect_.h;
+        width_frame = bo.rect.w;
+        height_frame = bo.rect.h;
     }
     return ret;
 }
 
-void Basket::set_clips()
+void Basket::renderBasket(SDL_Renderer* des)
 {
-    if (width_frame_ > 0 && height_frame_ > 0)
-    {
-        frame_clip_[0].x = 0;
-        frame_clip_[0].y = 0;
-        frame_clip_[0].w = width_frame_;
-        frame_clip_[0].h = height_frame_;
-    }
+    bo.rect.x = x_pos;
+    bo.rect.y = y_pos;
+
+    SDL_Rect renderQuad = {bo.rect.x, bo.rect.y, width_frame, height_frame};
+
+    SDL_RenderCopy(des, basket_img, NULL, &renderQuad);
 }
 
-void Basket::Show(SDL_Renderer* des)
+void Basket::moveBasket(SDL_Event e)
 {
-    if (status_ == MOVE_LEFT || status_ == MOVE_RIGHT)
+    if (e.type == SDL_KEYDOWN)
     {
-        LoadImg("img/basket80.png", des);
-    }
-
-    rect_.x = x_pos_;
-    rect_.y = y_pos_;
-
-    SDL_Rect* current_clip = &frame_clip_[frame_];
-
-    SDL_Rect renderQuad = {rect_.x, rect_.y, width_frame_, height_frame_};
-
-    SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
-
-}
-
-void Basket::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
-{
-    if (events.type == SDL_KEYDOWN)
-    {
-        switch(events.key.keysym.sym)
+        if (e.key.keysym.sym == SDLK_RIGHT)
         {
-        case SDLK_RIGHT:
+            x_pos += value_move;
+            if (x_pos > SCREEN_WIDTH - width_frame)
             {
-                status_ = MOVE_RIGHT;
-                if (x_pos_ < SCREEN_WIDTH - 80)
-                {
-                    input_type_.right_ = 1;
-                    input_type_.left_ = 0;
-                    x_pos_ += 80;
-                } else {
-                    x_pos_ = SCREEN_WIDTH - 80;
-                }
+                x_pos = SCREEN_WIDTH - width_frame;
             }
-            break;
-        case SDLK_LEFT:
+        }
+        if (e.key.keysym.sym == SDLK_LEFT)
+        {
+            x_pos -= value_move;
+            if (x_pos < 0)
             {
-                status_ = MOVE_LEFT;
-                if (x_pos_ > 0)
-                {
-                input_type_.left_ = 1;
-                input_type_.right_ = 0;
-                x_pos_ -= 80;
-                } else {
-                    x_pos_ = 0;
-                }
+                x_pos = 0;
             }
-            break;
         }
     }
-    else if (events.type == SDL_KEYUP)
+}
+
+bool Basket::checkCollision(Ball &ball)
+{
+    int l1_x = x_pos + 11;
+    int l1_y = y_pos + 50;
+    int r1_x = l1_x + width_frame - 24;
+    int r1_y = l1_y + height_frame - 70;
+    int l2_x = ball.x_pos;
+    int l2_y = ball.y_pos;
+    int r2_x = l2_x + ball.width_frame;
+    int r2_y = l2_y + ball.height_frame;
+
+    if(l1_x >= r2_x || l2_x >= r1_x) return false;
+    if(l1_y >= r2_y || l2_y >= r1_y) return false;
+    return true;
+}
+
+bool Basket::isCatched(Ball &ball)
+{
+    if(checkCollision(ball))
     {
-        switch(events.key.keysym.sym)
+        int x1 = ball.x_pos + (ball.width_frame / 2);
+        int x2 = x_pos;
+        if(x1 < x2 || x1 > x2 + width_frame)
         {
-        case SDLK_RIGHT:
-            {
-                input_type_.right_ = 0;
-            }
-            break;
-        case SDLK_LEFT:
-            {
-                input_type_.left_ = 0;
-            }
-            break;
+            return false;
+        }
+        else
+        {
+            //cout<<1;
+            ball.check_catched = true;
+            return true;
+        }
+    }
+    return false;
+}
+void Basket::catchFail(Ball &ball, bool &is_quit)
+{
+    if(ball.check)
+    {
+        live -= 1;
+        ball.check = false;
+        if(!live)
+        {
+            is_quit = true;
         }
     }
 }
