@@ -13,7 +13,6 @@ public:
 
     enum TextColor
     {
-        RED_TEXT = 0,
         WHITE_TEXT = 1,
         BLACK_TEXT = 0
     };

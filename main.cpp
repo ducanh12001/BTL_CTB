@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <windows.h>
+#include <fstream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -11,6 +12,7 @@
 #include "CommonFunc.h"
 #include "BaseObject.h"
 #include "TextObject.h"
+
 
 using namespace std;
 
@@ -96,11 +98,8 @@ void close()
 int main(int argc, char* argv[])
 {
     srand(time(0));
-    if (InitData() == false)
-        return -1;
-
-    if (loadBackGround() == false)
-        return -1;
+    if (InitData() == false) return -1;
+    if (loadBackGround() == false) return -1;
 
     Basket basket;
     basket.loadImg(g_screen);
@@ -109,10 +108,20 @@ int main(int argc, char* argv[])
 
     TextObject game_score;
     game_score.setColor(TextObject::WHITE_TEXT);
-    int score_val = 0;
+    int score = 0;
 
     TextObject game_live;
     game_live.setColor(TextObject::WHITE_TEXT);
+
+    TextObject game_highscore;
+    game_highscore.setColor(TextObject::WHITE_TEXT);
+    int highscore;
+    ifstream input("highscore.txt");
+    while (!input.eof())
+    {
+        input >> highscore;
+    }
+    input.close();
 
     bool is_quit = false;
     while(!is_quit)
@@ -120,7 +129,7 @@ int main(int argc, char* argv[])
         ball.update_speed();
         if (basket.isCatched(ball) == true)
         {
-            score_val+=10;
+            score+=10;
         }
         ball.resetBall();
         basket.catchFail(ball, is_quit);
@@ -141,28 +150,52 @@ int main(int argc, char* argv[])
         basket.renderBasket(g_screen);
         ball.renderBall(g_screen);
 
+        if(!basket.live)
+        {
+            if(MessageBox(NULL, "Game Over", "Info", MB_OK | MB_ICONSTOP) == IDOK)
+            {
+                ofstream output("highscore.txt");
+                if (score > highscore)
+                {
+                    output << score;
+                }
+                else
+                {
+                    output << highscore;
+                }
+                output.close();
+                close();
+                return 0;
+            }
+        }
+
         //chi so game
-        string val_str_score = to_string(score_val);
+        string val_str_score = to_string(score);
         string str_score("Score:");
         str_score += val_str_score;
         game_score.setText(str_score);
         game_score.LoadFromRenderText(font, g_screen);
-        game_score.RenderText(g_screen, SCREEN_WIDTH*0.5 - 50, 15);
+        game_score.RenderText(g_screen, SCREEN_WIDTH * 0.5 - 70, 3);
 
         string val_str_live = to_string(basket.live);
         string str_live("Live:");
         str_live += val_str_live;
         game_live.setText(str_live);
         game_live.LoadFromRenderText(font, g_screen);
-        game_live.RenderText(g_screen, 10, 15);
+        game_live.RenderText(g_screen, 10, 3);
+
+        string val_str_highscore = to_string(highscore);
+        string str_highscore("HS:");
+        str_highscore += val_str_highscore;
+        game_highscore.setText(str_highscore);
+        game_highscore.LoadFromRenderText(font, g_screen);
+        game_highscore.RenderText(g_screen, SCREEN_WIDTH - 100, 3);
+
+        string str_over("Game Over!");
+
 
         SDL_RenderPresent(g_screen);
     }
-    if (MessageBox(NULL, "Game Over", "Info", MB_OK | MB_ICONSTOP) == IDOK)
-    {
-        close();
-        return 0;
-    }
-    // close();
+    close();
     return 0;
 }

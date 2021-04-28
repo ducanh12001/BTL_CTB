@@ -17,24 +17,23 @@ Basket::~Basket() {}
 
 bool Basket::loadImg(SDL_Renderer* screen)
 {
-    bool ret = bo.LoadImg(basket_path, screen);
+    bool check = bo.LoadImg(basket_path, screen);
     basket_img = bo.p_object;
-    if (ret == true)
+    if (check == true)
     {
         width_frame = bo.rect.w;
         height_frame = bo.rect.h;
     }
-    return ret;
+    return check;
 }
 
-void Basket::renderBasket(SDL_Renderer* des)
+void Basket::renderBasket(SDL_Renderer* screen)
 {
     bo.rect.x = x_pos;
     bo.rect.y = y_pos;
 
     SDL_Rect renderQuad = {bo.rect.x, bo.rect.y, width_frame, height_frame};
-
-    SDL_RenderCopy(des, basket_img, NULL, &renderQuad);
+    SDL_RenderCopy(screen, basket_img, NULL, &renderQuad);
 }
 
 void Basket::moveBasket(SDL_Event e)
@@ -97,10 +96,10 @@ bool Basket::isCatched(Ball &ball)
 }
 void Basket::catchFail(Ball &ball, bool &is_quit)
 {
-    if(ball.check)
+    if(ball.check_missed)
     {
         live -= 1;
-        ball.check = false;
+        ball.check_missed = false;
         if(!live)
         {
             is_quit = true;

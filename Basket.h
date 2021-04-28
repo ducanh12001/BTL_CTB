@@ -20,21 +20,20 @@ public:
     void moveBasket(SDL_Event e);
     bool checkCollision(Ball &ball);
     bool isCatched(Ball &ball);
+    void catchFail(Ball&, bool &is_quit);
 
     float x_pos;
     float y_pos;
-
     int width_frame;
     int height_frame;
 
-    float value_move = 100;
+    float value_move = 70;
 
     SDL_Texture *basket_img;
     string basket_path = "img/basket80.png";
     SDL_FRect basket_rect;
 
     int live = LIVE;
-    void catchFail(Ball&, bool &is_quit);
 };
 
 #endif // BASKET_H

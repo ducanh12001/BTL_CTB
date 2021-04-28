@@ -13,25 +13,25 @@ Ball::Ball()
 
 Ball::~Ball() {}
 
-bool Ball::loadImg(SDL_Renderer* des)
+bool Ball::loadImg(SDL_Renderer* screen)
 {
     SDL_Surface* load_surface = IMG_Load(ball_path.c_str());
     if (load_surface != NULL)
     {
         SDL_SetColorKey(load_surface, SDL_TRUE, SDL_MapRGB(load_surface->format, COLOR_KEY_R, COLOR_KEY_G, COLOR_KEY_B));
-        ball_img = SDL_CreateTextureFromSurface(des, load_surface);
+        ball_img = SDL_CreateTextureFromSurface(screen, load_surface);
         SDL_FreeSurface(load_surface);
     }
     return true;
 }
 
-void Ball::renderBall(SDL_Renderer* des)
+void Ball::renderBall(SDL_Renderer* screen)
 {
     //bo.rect.x = x_pos;
     //bo.rect.y = y_pos;
 
     SDL_FRect renderQuad = {x_pos, y_pos, width_frame, height_frame};
-    SDL_RenderCopyF(des, ball_img, NULL, &renderQuad);
+    SDL_RenderCopyF(screen, ball_img, NULL, &renderQuad);
 }
 
 void Ball::ballMove()
@@ -44,7 +44,9 @@ void Ball::resetBall()
     if(y_pos >= SCREEN_HEIGHT || check_catched)
     {
         y_pos = 0;
-        if(!check_catched) check = true;
+        if(!check_catched) {
+            check_missed = true;
+        }
         check_catched = false;
         x_pos = rand() % int(SCREEN_WIDTH / width_frame) * width_frame;
     }
@@ -53,11 +55,14 @@ void Ball::resetBall()
 void Ball::update_speed()
 {
     //std::cout<<count_frame<< std::endl;
-    count_frame = (count_frame + 1)%limit_frame;
-    if(count_frame % limit_frame == 0)
+    count_frame = (count_frame + 1) % limit_frame;
+    if(count_frame % limit_frame == 1)
     {
-        ball_speed += (double)increase_speed;
+        ball_speed += increase_speed;
         //std::cout<<ball_speed<< std::endl;
+        if(ball_speed > max_speed) {
+            ball_speed = max_speed;
+        }
     }
 }
 

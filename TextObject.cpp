@@ -42,12 +42,7 @@ void TextObject::setColor(Uint8 red, Uint8 green, Uint8 blue)
 
 void TextObject::setColor(int type)
 {
-    if (type == RED_TEXT)
-    {
-        SDL_Color color = {255, 0, 0};
-        text_color = color;
-    }
-    else if (type == WHITE_TEXT)
+    if (type == WHITE_TEXT)
     {
         SDL_Color color = {255, 255, 255};
         text_color = color;
